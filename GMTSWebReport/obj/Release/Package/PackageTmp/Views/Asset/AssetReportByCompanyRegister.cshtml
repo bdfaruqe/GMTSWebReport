@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "AssetReportByCustodian";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Asset Report By Company Register</h2>
+
+<button type="button" class="btn btn-primary" id="LinkExcel" value="Download Report">Download Report Excel</button>
+<button type="button" class="btn btn-primary" id="LinkPDF" value="Download Report">Download Report Pdf</button>
+
+
+@*@Html.ActionLink("Excel", "SalesPersonSendSmsListExportNew", "Home", new { id = "LinkExcel" })*@
+
+<script>
+
+    $('#LinkExcel').click(function () {
+
+        GotoExport('Excel');
+        return false;
+    });
+
+    $('#LinkPDF').click(function () {
+
+        GotoExport('pdf');
+        return false;
+    });
+
+    function GotoExport(_FileType) {
+
+        var ContentType = "";
+        if (_FileType == "Excel")
+            ContentType = "application/vnd.ms-excel";
+        else if (_FileType == "pdf")
+            ContentType = "application/pdf";
+
+        var target = "@Url.Action("AssetReportByCompanyRegisterExport", "Asset")";
+        var url = target + '?FileType=' + _FileType + '&ContentType=' + ContentType+'&companyId='+10;
+        window.location.href = url;
+        return false;
+    }
+</script>
+
+

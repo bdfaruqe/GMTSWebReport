@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "AssetReportByItemCategoryStock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Asset Report By Item Category Stock</h2>
+
+<button type="button" class="btn btn-primary" id="LinkExcel" value="Download Report">Download Report Excel</button>
+<button type="button" class="btn btn-primary" id="LinkPDF" value="Download Report">Download Report Pdf</button>
+
+
+<script>
+
+    $('#LinkExcel').click(function () {
+        GotoExport('Excel');
+        return false;
+    });
+
+    $('#LinkPDF').click(function () {
+
+        GotoExport('pdf');
+        return false;
+    });
+
+    function GotoExport(_FileType) {
+        var ContentType = "";
+        if (_FileType == "Excel")
+            ContentType = "application/vnd.ms-excel";
+        else if (_FileType == "pdf")
+            ContentType = "application/pdf";
+
+        var target = "@Url.Action("AssetReportByItemCategoryStockExport", "Asset")";
+        var url = target + '?FileType=' + _FileType + '&ContentType=' + ContentType + '&CompanyId=' + 10 + '&AssetItemId=' +2;
+        window.location.href = url;
+        return false;
+    }
+</script>
+
+
